@@ -13,6 +13,7 @@ def croptime(img, one, two):
         print("Abort CropTime(): check first variable is lower than the second")
         return img
     if two > 10:
+        #assume ECG images wont be longer than 10s
         print("Abort CropTime(): check second variable is less than 10")
         return img
     if one < 0:
