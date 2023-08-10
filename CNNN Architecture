@@ -1,0 +1,32 @@
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+import sklearn
+from sklearn import model_selection
+from sklearn.metrics import classification_report, accuracy_score
+import matplotlib
+import matplotlib.pyplot as plt
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+from tensorflow.keras.optimizers import Adam
+from keras.layers import Dropout
+#read plot using matplotlib.pyplot
+
+#Assume length = 2000 and width 1000 and kernel size(height and width of 2D convolutional window) to (3,3)
+
+model = Sequential()
+model.add(Conv2D(kernel_size = (3,3), activation = 'relu', input_shape=(2000,1000)))
+model.add(MaxPool2D(pool_size = (2,2)))#pooling layer
+model.add(Conv2D(kernel_size = (3,3), activation = 'relu'))
+model.add(MaxPool2D(pool_size = (2,2)))#pooling layer
+#model.add(Conv2D(kernel_size = (3,3), activation = 'relu'))
+#model.add(MaxPool2D(pool_size = (2,2)))#pooling layer
+model.add(Flatten())
+model.summary()
+
+#Compile model
+adam = Adam(lr = 0.001)
+model.compile(loss = 'categorical_crossentropy', optimizer = 'rmsprop', metrics = ['accuracy'])
+model.summary()
+model.fit(X_test, Y_test, validation_data=(X_test, Y_test),epochs=50, batch_size=10)
